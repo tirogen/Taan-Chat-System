@@ -1,8 +1,17 @@
-import express = require('express');
-const app: express.Application = express();
-app.get('/', function (req, res) {
-  res.send('dxHello World!');
+import express from "express";
+import cors from "cors";
+import * as http from "http";
+
+const PORT:number = process.env.HTTP_PORT || 3000;
+
+const app:express.Application = express();
+const server:http.Server = http.createServer(app)
+app.use(cors())
+
+server.listen(PORT, () => {
+  console.log("Running server on port %s", PORT);
 });
-app.listen(3000, function () {
-  console.log('App is listening on port 3000!');
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
