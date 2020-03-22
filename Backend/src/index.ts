@@ -44,6 +44,7 @@ io.on("connect", (socket: any) => {
 
   socket.on('new-room', (room: Room) => {
       console.log(`${room.client} new ${room.room}`);
+      socket.join(room.room);
       io.sockets.emit('new-room', room);
   })
 
