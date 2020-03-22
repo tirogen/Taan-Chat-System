@@ -1,4 +1,4 @@
-import {CounterAction, CounterState} from './../type';
+import { CounterAction, CounterState } from './../type';
 
 const initialState: CounterState = {
   n: 0,

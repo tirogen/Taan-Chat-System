@@ -6,12 +6,13 @@ import Room from './components/Room';
 import Member from './components/Member';
 import Chat from './components/Chat';
 import Test from './components/Test';
+
 // import {Message} from './types';
 import './App.scss';
-import {AppState} from './store';
-import {increment} from './store/actions';
-import {CounterState} from './store/type'; 
-import {connect} from 'react-redux';
+import { AppState } from './store';
+import { increment } from './store/actions';
+import { CounterState } from './store/type';
+import { connect } from 'react-redux';
 
 const mapStateToProps = (state : AppState) => ({
   counter: state.counter
@@ -31,7 +32,6 @@ class App extends Component<AppProps> {
 
   componentDidMount() {
     this.state.socket.emit('join-room', 'taan0229')
-
     // this.state.socket.on('display', ({room, message, owner}: Message) => {
     //   this.setState({ message })
     // })

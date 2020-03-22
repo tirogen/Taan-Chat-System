@@ -1,21 +1,20 @@
-import React, { useContext } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppState } from './../store';
+import { setName } from './../store/actions'
 
 const Client: React.FC = () => {
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    console.log(e.target[0].value)
-  };
+  const client = useSelector((state: AppState) => state.client)
+  const dispatch = useDispatch();
+  const inputName = useRef<HTMLInputElement>(null);
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group>
-        <Form.Label>Client Name</Form.Label>
-        <Form.Control type="text" placeholder="Enter Your Name" />
-      </Form.Group>
-      <Button variant="primary" type="submit">Submit</Button>
-    </Form>
+    <>
+      <input type="text" ref={inputName} />
+      <button onClick={() => dispatch(setName(inputName.current?.value || ''))}>SETNAME</button>
+      <p>{client.name}</p>
+    </>
   )
 }
 

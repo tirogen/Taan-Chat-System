@@ -1,22 +1,38 @@
-import React, {Component} from 'react';
+import React, { useRef } from 'react';
+import { ListGroup, Card } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppState } from './../store';
+import { setName } from './../store/actions'
 
-class Member extends Component {
+const Member: React.FC = () => {
 
-  state = {
-    message: ''
-  }
+  const { selectedRoom } = useSelector((state: AppState) => state.room)
+  const { members } = useSelector((state: AppState) => state.member)
 
-  componentDidMount() {
+  members.map((xx: any) => console.log(xx))
 
-  }
+  /*const listMembers: JSX.Element[] = [];
+  members.map((member: {
+    member: string,
+    room: string
+  }) => {
+    if(member.room === selectedRoom)
+      listMembers.push(<ListGroup.Item>{member.member}</ListGroup.Item>)
+  })*/
 
-  render() {
-    return (
-        <div>
-          xx
-        </div>
-    );
-  }
+  /*const roomMembers: JSX.Element[] = [
+    <Card style={{ width: '18rem' }}>
+      <ListGroup variant="flush">
+        {listMembers}
+      </ListGroup>
+    </Card>
+  ];*/
+
+  return (
+    <>
+      sad
+    </>
+  )
 }
 
 export default Member;
