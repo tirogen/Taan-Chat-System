@@ -2,10 +2,11 @@ import React, { useRef } from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from './../store';
-import { selectRoom, joinRoom, leaveRoom, addRoom } from './../store/actions'
+import { selectRoom, joinRoom, leaveRoom, addRoom, leaveMember, joinMember } from './../store/actions'
 
 const Room: React.FC = () => {
 
+  const { name } = useSelector((state: AppState) => state.client)
   const room = useSelector((state: AppState) => state.room)
   const dispatch = useDispatch();
   const inputRoom = useRef<HTMLInputElement>(null);
@@ -17,7 +18,10 @@ const Room: React.FC = () => {
         <Row>{room}</Row>
         <Row>
           <Col><button onClick={() => dispatch(selectRoom(room))}>Select</button></Col>
-          <Col><button onClick={() => dispatch(leaveRoom(room))}>Leave</button></Col>
+          <Col><button onClick={() => {
+            dispatch(leaveRoom(room))
+            dispatch(leaveMember(name, room))
+          }}>Leave</button></Col>
         </Row>
       </Card>
     )
@@ -28,7 +32,10 @@ const Room: React.FC = () => {
     otherRooms.push(
       <Card body>
         <Row>{room}</Row>
-        <Row><button onClick={() => dispatch(joinRoom(room))}>JOIN</button></Row>
+        <Row><button onClick={() => {
+          dispatch(joinRoom(room))
+          dispatch(joinMember(name, room))
+        }}>JOIN</button></Row>
       </Card>
     )
   })

@@ -1,7 +1,7 @@
 import { RoomAction, RoomState } from './../type';
 
 const initialState: RoomState = {
-  selectedRoom: '',
+  selectedRoom: 'taan0229',
   yourRooms: ['taan0229'],
   otherRooms: ['tee59', 'beesk1234']
 }

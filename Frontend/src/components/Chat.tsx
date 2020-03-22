@@ -13,7 +13,7 @@ class Chat extends Component {
   render() {
     return (
         <div>
-          xx
+        asdasd
         </div>
     );
   }

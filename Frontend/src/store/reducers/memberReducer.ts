@@ -12,6 +12,10 @@ const initialState: MemberState = {
   {
     member: 'x789',
     room: 'taan0229'
+  },
+  {
+    member: 'pud99',
+    room: 'taan0229'
   }]
 }
 
