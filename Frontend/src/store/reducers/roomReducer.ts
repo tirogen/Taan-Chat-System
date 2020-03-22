@@ -32,6 +32,13 @@ const roomReducer = (state = initialState, action: RoomAction) => {
           yourRooms: state.yourRooms.indexOf(action.room) === -1 ? [...state.yourRooms, action.room] : state.yourRooms,
           otherRooms: state.otherRooms
         };
+      //instruction from backend
+      case 'NEWROOM':
+        return {
+          selectedRoom: state.selectedRoom,
+          yourRooms: state.yourRooms,
+          otherRooms: state.otherRooms.indexOf(action.room) === -1 ? [...state.otherRooms, action.room] : state.otherRooms,
+        };
       default:
         return state;
     }

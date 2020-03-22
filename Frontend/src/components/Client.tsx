@@ -5,7 +5,7 @@ import { setName } from './../store/actions'
 
 const Client: React.FC = () => {
 
-  const client = useSelector((state: AppState) => state.client)
+  const { name } = useSelector((state: AppState) => state.client)
   const dispatch = useDispatch();
   const inputName = useRef<HTMLInputElement>(null);
 
@@ -13,7 +13,7 @@ const Client: React.FC = () => {
     <>
       <input type="text" ref={inputName} />
       <button onClick={() => dispatch(setName(inputName.current?.value || ''))}>SETNAME</button>
-      <p>{client.name}</p>
+      <p>{name}</p>
     </>
   )
 }

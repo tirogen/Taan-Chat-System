@@ -7,6 +7,7 @@ import { selectRoom, joinRoom, leaveRoom, addRoom, leaveMember, joinMember } fro
 const Room: React.FC = () => {
 
   const { name } = useSelector((state: AppState) => state.client)
+  const { socket } = useSelector((state: AppState) => state.socket)
   const room = useSelector((state: AppState) => state.room)
   const dispatch = useDispatch();
   const inputRoom = useRef<HTMLInputElement>(null);
@@ -21,6 +22,10 @@ const Room: React.FC = () => {
           <Col><button onClick={() => {
             dispatch(leaveRoom(room))
             dispatch(leaveMember(name, room))
+            socket.emit('leave-room', {
+              client: name,
+              room: room
+            })
           }}>Leave</button></Col>
         </Row>
       </Card>
@@ -35,6 +40,14 @@ const Room: React.FC = () => {
         <Row><button onClick={() => {
           dispatch(joinRoom(room))
           dispatch(joinMember(name, room))
+          console.log({
+            client: name,
+            room: room
+          })
+          socket.emit('join-room', {
+            client: name,
+            room: room
+          })
         }}>JOIN</button></Row>
       </Card>
     )
@@ -42,15 +55,21 @@ const Room: React.FC = () => {
 
   return (
     <>
-      <h2>Selected Room</h2>
-      {room.selectedRoom}
       <h2>Your Room</h2>
       {yourRooms}
       <h2>Other Room</h2>
       {otherRooms}
       <h2>Add Room</h2>
       <input type="text" ref={inputRoom} />
-      <button onClick={() => dispatch(addRoom(inputRoom.current?.value || ''))}>Add room</button>
+      <button onClick={() => {
+        const newRoom: string = inputRoom.current?.value || '';
+        dispatch(addRoom(newRoom))
+        dispatch(joinMember(name, newRoom))
+        socket.emit('new-room', {
+          client: name,
+          room: newRoom
+        })
+      }}>Add room</button>
     </>
   )
 }

@@ -4,9 +4,15 @@ import * as http from "http";
 
 const PORT: number = 3001;
 interface Message {
-   room: string;
-   message: string;
-   owner: string;
+   room: string,
+   message: string,
+   client: string,
+   time: string
+}
+
+interface Room {
+  client: string,
+  room: string
 }
 
 const app: express.Application = express();
@@ -25,18 +31,25 @@ app.get('/', (req, res) => {
 io.on("connect", (socket: any) => {
   console.log("New user - %s.", socket.id);
 
-  socket.on('join-room', (roomName: string) => {
-      console.log(`${socket.id} join ${roomName}`);
-      socket.join(roomName);
+  socket.on('join-room', (room: Room) => {
+      console.log(`${room.client} join ${room.room}`);
+      socket.join(room.room);
+      io.sockets.emit('join-room', room);
   })
 
-  socket.on('leave-room', (roomName: string) => {
-      console.log(`${socket.id} leave ${roomName}`);
-      socket.leave(roomName);
+  socket.on('leave-room', (room: Room) => {
+      console.log(`${room.client} leave ${room.room}`);
+      socket.leave(room.room);
+      io.sockets.emit('leave-room', room);
   })
 
-  socket.on('greet', ({room, message, owner}: Message) => {
-      console.log(`${owner} said ${message}`);
-      io.to(room).emit('display', {room, message, owner});
+  socket.on('new-room', (room: Room) => {
+      console.log(`${room.client} new ${room.room}`);
+      io.sockets.emit('new-room', room);
+  })
+
+  socket.on('greet', ({ room, message, client }: Message) => {
+      console.log(`${client} said ${message}`);
+      io.to(room).emit('greet', { room, message, client });
   })
 });

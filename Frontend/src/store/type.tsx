@@ -39,3 +39,12 @@ export interface MemberState {
     room: string
   }[]
 }
+
+export interface SocketAction {
+    type: string,
+    socket: SocketIOClient.Socket
+}
+
+export interface SocketState {
+    socket: SocketIOClient.Socket
+}

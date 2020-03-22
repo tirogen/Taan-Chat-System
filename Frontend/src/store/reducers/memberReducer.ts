@@ -23,14 +23,14 @@ const memberReducer = (state = initialState, action: MemberAction) => {
     switch(action.type){
       case 'JOINMEMBER':
         return {
-          member: [...state.members, {
+          members: state.members.find(member => member.member === action.member && member.room === action.room) ? state.members :  [...state.members, {
             member: action.member,
             room: action.room,
           }]
         };
       case 'LEAVEMEMBER':
         return {
-          member: state.members.filter(member => (member.member !== action.member && member.room !== action.room))
+          members: state.members.filter(member => member.member !== action.member || member.room !== action.room)
         };
       default:
         return state;

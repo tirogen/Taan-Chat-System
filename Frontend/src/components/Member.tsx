@@ -1,8 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { ListGroup, Card } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AppState } from './../store';
-import { setName } from './../store/actions'
 import { MemberState } from './../store/type'
 
 const Member: React.FC = () => {
@@ -24,9 +23,10 @@ const Member: React.FC = () => {
     </Card>
   ];
 
-  console.log(listMembers)
   return (
     <>
+      <h2>Selected Room</h2>
+      {selectedRoom}
       {roomMembers}
     </>
   )

@@ -1,4 +1,4 @@
-import { CounterAction, ClientAction, RoomAction, MemberAction } from './type';
+import { CounterAction, ClientAction, RoomAction, MemberAction, SocketAction } from './type';
 
 export const increment = (): CounterAction => {
     return {
@@ -37,6 +37,13 @@ export const addRoom = (room: string): RoomAction => {
       room
     }
 }
+//instruction from backend
+export const newRoom = (room: string): RoomAction => {
+    return {
+      type: 'NEWROOM',
+      room
+    }
+}
 
 export const joinMember = (member: string, room: string): MemberAction => {
     return {
@@ -50,5 +57,12 @@ export const leaveMember = (member: string, room: string): MemberAction => {
       type: 'LEAVEMEMBER',
       member,
       room
+    }
+}
+
+export const setSocket = (socket: SocketIOClient.Socket): SocketAction => {
+    return {
+      type: 'SETSOCKET',
+      socket
     }
 }

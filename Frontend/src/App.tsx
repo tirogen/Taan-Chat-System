@@ -6,8 +6,6 @@ import Room from './components/Room';
 import Member from './components/Member';
 import Chat from './components/Chat';
 import Test from './components/Test';
-
-// import {Message} from './types';
 import './App.scss';
 import { AppState } from './store';
 import { increment } from './store/actions';
@@ -25,18 +23,6 @@ interface AppProps {
 
 class App extends Component<AppProps> {
 
-  state = {
-    socket: socketIOClient('http://localhost:3001'),
-    message: '',
-  }
-
-  componentDidMount() {
-    this.state.socket.emit('join-room', 'taan0229')
-    // this.state.socket.on('display', ({room, message, owner}: Message) => {
-    //   this.setState({ message })
-    // })
-  }
-
   handleChange = (e: any) => {
     // const msg: Message = {
     //   room: 'taan0229',
@@ -48,7 +34,7 @@ class App extends Component<AppProps> {
 
   render() {
     return (
-      <Container>
+      <>
         <Row>
           <Col>Top</Col>
         </Row>
@@ -57,14 +43,14 @@ class App extends Component<AppProps> {
           <Col md={3}><Room /></Col>
           <Col md={2}><Member /></Col>
           <Col><Chat /></Col>
-          <Col>
+          /*<Col>
             <Test />
             <p>From App.tsx {this.props.counter.n}</p>
             <p>From App.tsx {this.props.counter.message}</p>
             <button onClick={() => this.props.increment()}>Add in App.tsx</button>
-          </Col>
+          </Col>*/
         </Row>
-      </Container>
+      </>
     );
   }
 }
