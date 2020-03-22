@@ -1,7 +1,7 @@
 import { ClientAction, ClientState } from './../type';
 
 const initialState: ClientState = {
-  name: 'pud99'
+  name: ''
 }
 
 const clientReducer = (state = initialState, action: ClientAction) => {

@@ -16,7 +16,7 @@ const Member: React.FC = () => {
   })
 
   const roomMembers: JSX.Element[] = [
-    <Card style={{ width: '18rem' }}>
+    <Card>
       <ListGroup variant="flush">
         {listMembers}
       </ListGroup>

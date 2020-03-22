@@ -6,8 +6,7 @@ const PORT: number = 3001;
 interface Message {
    room: string,
    message: string,
-   client: string,
-   time: string
+   client: string
 }
 
 interface Room {
@@ -49,7 +48,8 @@ io.on("connect", (socket: any) => {
   })
 
   socket.on('greet', ({ room, message, client }: Message) => {
-      console.log(`${client} said ${message}`);
-      io.to(room).emit('greet', { room, message, client });
+      console.log(`${client} said ${message} from ${room}`);
+      const time = (new Date()).toString();
+      io.to(room).emit('greet', { room, message, client, time });
   })
 });

@@ -40,10 +40,6 @@ const Room: React.FC = () => {
         <Row><button onClick={() => {
           dispatch(joinRoom(room))
           dispatch(joinMember(name, room))
-          console.log({
-            client: name,
-            room: room
-          })
           socket.emit('join-room', {
             client: name,
             room: room

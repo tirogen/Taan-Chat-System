@@ -1,9 +1,9 @@
 import { RoomAction, RoomState } from './../type';
 
 const initialState: RoomState = {
-  selectedRoom: 'taan0229',
-  yourRooms: ['taan0229'],
-  otherRooms: ['tee59', 'beesk1234']
+  selectedRoom: '',
+  yourRooms: [],
+  otherRooms: []
 }
 
 const roomReducer = (state = initialState, action: RoomAction) => {
@@ -30,14 +30,14 @@ const roomReducer = (state = initialState, action: RoomAction) => {
         return {
           selectedRoom: action.room,
           yourRooms: state.yourRooms.indexOf(action.room) === -1 ? [...state.yourRooms, action.room] : state.yourRooms,
-          otherRooms: state.otherRooms
+          otherRooms: state.otherRooms.indexOf(action.room) === -1 ? state.otherRooms : state.otherRooms.filter(room => room !== action.room)
         };
       //instruction from backend
       case 'NEWROOM':
         return {
           selectedRoom: state.selectedRoom,
           yourRooms: state.yourRooms,
-          otherRooms: state.otherRooms.indexOf(action.room) === -1 ? [...state.otherRooms, action.room] : state.otherRooms,
+          otherRooms: state.otherRooms.indexOf(action.room) === -1 && state.yourRooms.indexOf(action.room) === -1 ? [...state.otherRooms, action.room] : state.otherRooms,
         };
       default:
         return state;

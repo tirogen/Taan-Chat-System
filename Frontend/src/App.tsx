@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import socketIOClient from "socket.io-client";
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import Client from './components/Client';
 import Room from './components/Room';
 import Member from './components/Member';
 import Chat from './components/Chat';
-import Test from './components/Test';
 import './App.scss';
 import { AppState } from './store';
 import { increment } from './store/actions';
@@ -23,15 +21,6 @@ interface AppProps {
 
 class App extends Component<AppProps> {
 
-  handleChange = (e: any) => {
-    // const msg: Message = {
-    //   room: 'taan0229',
-    //   message: e.target.value,
-    //   owner: 'uniqueue'
-    // }
-    // this.state.socket.emit('greet', msg)
-  }
-
   render() {
     return (
       <>
@@ -43,17 +32,10 @@ class App extends Component<AppProps> {
           <Col md={3}><Room /></Col>
           <Col md={2}><Member /></Col>
           <Col><Chat /></Col>
-          /*<Col>
-            <Test />
-            <p>From App.tsx {this.props.counter.n}</p>
-            <p>From App.tsx {this.props.counter.message}</p>
-            <button onClick={() => this.props.increment()}>Add in App.tsx</button>
-          </Col>*/
         </Row>
       </>
     );
   }
 }
 
-// export default App;
 export default connect(mapStateToProps, {increment})(App);

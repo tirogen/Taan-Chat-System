@@ -1,22 +1,7 @@
 import { MemberAction, MemberState } from './../type';
 
 const initialState: MemberState = {
-  members: [{
-    member: 'x123',
-    room: 'taan0229'
-  },
-  {
-    member: 'x456',
-    room: 'taan0229'
-  },
-  {
-    member: 'x789',
-    room: 'taan0229'
-  },
-  {
-    member: 'pud99',
-    room: 'taan0229'
-  }]
+  members: []
 }
 
 const memberReducer = (state = initialState, action: MemberAction) => {
