@@ -26,8 +26,7 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     socket.on('greet', (msg: Message) => {
-      if(yourRooms.includes(msg.room))
-        console.log('come'); //try to comment this line
+      if(yourRooms.includes(msg.room)) // this line is not required because backend will send only yours room message
         setMessage([...messages, msg]);
     });
     socket.on('join-room', (msg: Room) => {
@@ -44,7 +43,7 @@ const Chat: React.FC = () => {
       console.log(`your socket id is ${socket.id}`);
       console.log(`is connected ${socket.connected}`);
     });
-  }, [messages]);
+  }, [messages, yourRooms]);
 
   const other = (msg: Message): JSX.Element => { return (
     <div className="media w-50 mb-3" key={Math.random()}>
