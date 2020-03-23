@@ -26,7 +26,7 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     socket.on('greet', (msg: Message) => {
-      console.log(msg)
+      console.log(msg);
       if(yourRooms.includes(msg.room))
         setMessage([...messages, msg]);
     });
@@ -40,7 +40,11 @@ const Chat: React.FC = () => {
       dispatch(newRoom(room.room))
       dispatch(joinMember(room.client, room.room))
     });
-  });
+    socket.on('connect', () => {
+      console.log(`your socket id is ${socket.id}`);
+      console.log(`is disconnected ${socket.disconnected}`);
+    });
+  }, [messages]);
 
   const other = (msg: Message):JSX.Element => { return (
     <div className="media w-50 mb-3">

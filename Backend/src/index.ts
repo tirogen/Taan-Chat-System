@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import * as SocketIO from 'socket.io';
 import * as http from "http";
 
 const PORT: number = 3001;
@@ -17,7 +18,7 @@ interface Room {
 const app: express.Application = express();
 const server: http.Server = http.createServer(app)
 app.use(cors())
-const io: SocketIO.Server = require("socket.io").listen(server, { origins: '*:*'});;
+const io: SocketIO.Server = SocketIO.listen(server, { origins: '*:*'});;
 
 server.listen(PORT, () => {
   console.log("Running server on port %s", PORT);

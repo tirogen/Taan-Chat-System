@@ -12,22 +12,18 @@ const Member: React.FC = () => {
   const listMembers: JSX.Element[] = [];
   members.map((member: any) => {
     if(member.room === selectedRoom)
-      listMembers.push(<ListGroup.Item>{member.member}</ListGroup.Item>)
+      listMembers.push(<ListGroup.Item key={Math.random()}>{member.member}</ListGroup.Item>)
   })
-
-  const roomMembers: JSX.Element[] = [
-    <Card>
-      <ListGroup variant="flush">
-        {listMembers}
-      </ListGroup>
-    </Card>
-  ];
 
   return (
     <>
       <h2>Selected Room</h2>
       {selectedRoom}
-      {roomMembers}
+      <Card>
+        <ListGroup variant="flush">
+          {listMembers}
+        </ListGroup>
+      </Card>
     </>
   )
 }

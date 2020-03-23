@@ -15,7 +15,7 @@ const Room: React.FC = () => {
   const yourRooms: JSX.Element[] = [];
   room.yourRooms.map((room: string) => {
     yourRooms.push(
-      <Card body>
+      <Card body key={Math.random()}>
         <Row>{room}</Row>
         <Row>
           <Col><button onClick={() => dispatch(selectRoom(room))}>Select</button></Col>
@@ -35,7 +35,7 @@ const Room: React.FC = () => {
   const otherRooms: JSX.Element[] = [];
   room.otherRooms.map((room: string) => {
     otherRooms.push(
-      <Card body>
+      <Card body key={Math.random()}>
         <Row>{room}</Row>
         <Row><button onClick={() => {
           dispatch(joinRoom(room))
