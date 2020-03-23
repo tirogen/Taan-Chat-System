@@ -51,7 +51,7 @@ io.on("connect", (socket: any) => {
 
   socket.on('greet', ({ room, message, client }: Message) => {
       console.log(`${client} said ${message} from ${room}`);
-      const time = (new Date()).toString();
-      io.to(room).emit('greet', { room, message, client, time });
+      const timestamp = Date.now();
+      io.to(room).emit('greet', { room, message, client, timestamp });
   })
 });

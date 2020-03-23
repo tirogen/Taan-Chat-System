@@ -7,7 +7,7 @@ interface Message {
     room: string,
     message: string,
     client: string,
-    time: string
+    timestamp: number
 }
 
 interface Room {
@@ -26,7 +26,8 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     socket.on('greet', (msg: Message) => {
-      if(yourRooms.includes(msg.room)) // this line is not required because backend will send only yours room message
+      console.log(msg)
+      if(msg.room === selectedRoom)
         setMessage([...messages, msg]);
     });
     socket.on('join-room', (msg: Room) => {
@@ -51,7 +52,7 @@ const Chat: React.FC = () => {
         <div className="bg-light rounded py-2 px-3 mb-2">
           <p className="text-small mb-0 text-muted">{msg.message}</p>
         </div>
-        <p className="small text-muted">{msg.client} - {msg.time}</p>
+        <p className="small text-muted">{msg.client} - {msg.timestamp}</p>
       </div>
     </div>
   )}
@@ -62,7 +63,7 @@ const Chat: React.FC = () => {
         <div className="bg-primary rounded py-2 px-3 mb-2">
           <p className="text-small mb-0 text-white">{msg.message}</p>
         </div>
-        <p className="small text-muted">{msg.client} - {msg.time}</p>
+        <p className="small text-muted">{msg.client} - {msg.timestamp}</p>
       </div>
     </div>
   )}
