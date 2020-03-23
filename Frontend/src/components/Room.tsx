@@ -13,7 +13,7 @@ const Room: React.FC = () => {
   const inputRoom = useRef<HTMLInputElement>(null);
 
   const yourRooms: JSX.Element[] = [];
-  room.yourRooms.map((room: string) => {
+  room.yourRooms.map((room: string): void => {
     yourRooms.push(
       <Card body key={Math.random()}>
         <Row>{room}</Row>
@@ -33,7 +33,7 @@ const Room: React.FC = () => {
   })
 
   const otherRooms: JSX.Element[] = [];
-  room.otherRooms.map((room: string) => {
+  room.otherRooms.map((room: string): void => {
     otherRooms.push(
       <Card body key={Math.random()}>
         <Row>{room}</Row>

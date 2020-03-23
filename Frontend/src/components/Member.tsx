@@ -10,7 +10,7 @@ const Member: React.FC = () => {
   const { members } : MemberState = useSelector((state: AppState) => state.member)
 
   const listMembers: JSX.Element[] = [];
-  members.map((member: any) => {
+  members.map((member: any): void => {
     if(member.room === selectedRoom)
       listMembers.push(<ListGroup.Item key={Math.random()}>{member.member}</ListGroup.Item>)
   })
