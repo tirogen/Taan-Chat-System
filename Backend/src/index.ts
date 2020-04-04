@@ -26,9 +26,9 @@ app.get('/', (req, res) => {
 io.on("connect", (socket: any) => {
   console.log("New user - %s.", socket.id);
 
-  socket.on('unread-message', async ({room: string, timestamp: string}) => {
+  socket.on('unread-message', async ({ room: string, timestamp: string }) => {
       const messages: Message = await getUnreadMessage(room, timestamp);
-      io.sockets.emit('greet', { room, message, client, timestamp });
+      sockets.emit('greet', { room, message, client, timestamp });
   })
 
   socket.on('init', async (client: string) => {
