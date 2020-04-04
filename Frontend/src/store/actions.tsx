@@ -66,3 +66,10 @@ export const setSocket = (socket: SocketIOClient.Socket): SocketAction => {
       socket
     }
 }
+
+export const setMessage = (message: Message): MessageAction => {
+    return {
+      type: 'SETMESSAGE',
+      message
+    }
+}

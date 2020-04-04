@@ -1,14 +1,8 @@
 import React, { useRef, useEffect, useState  } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from './../store';
-import { leaveMember, joinMember, newRoom } from './../store/actions'
-
-interface Message {
-    room: string,
-    message: string,
-    client: string,
-    timestamp: string
-}
+import { leaveMember, joinMember, newRoom, setMessage } from './../store/actions'
+import { Message } from './../store/type'
 
 interface Room {
   client: string,
@@ -20,7 +14,7 @@ const Chat: React.FC = () => {
   const { socket } = useSelector((state: AppState) => state.socket)
   const { selectedRoom, yourRooms } = useSelector((state: AppState) => state.room)
   const { name } = useSelector((state: AppState) => state.client)
-  const [messages, setMessage] = useState<Message[]>([]);
+  const { messages } = useSelector((state: AppState) => state.message)
   const dispatch = useDispatch();
   const conversation = useRef<HTMLInputElement>(null);
 
@@ -28,7 +22,7 @@ const Chat: React.FC = () => {
     socket.on('greet', (msg: Message) => {
       console.log(msg)
       if(msg.room === selectedRoom)
-        setMessage([...messages, msg]);
+        dispatch(setMessage(msg))
     });
     socket.on('join-room', (msg: Room) => {
       dispatch(joinMember(msg.client, msg.room))
@@ -45,7 +39,7 @@ const Chat: React.FC = () => {
       console.log(`is connected ${socket.connected}`);
       socket.emit('init', name);
     });
-  }, [messages, yourRooms, name]);
+  }, [yourRooms, name]);
 
   const other = (msg: Message): JSX.Element => { return (
     <div className="media w-50 mb-3" key={Math.random()}>

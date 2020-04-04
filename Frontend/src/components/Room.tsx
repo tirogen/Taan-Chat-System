@@ -18,7 +18,13 @@ const Room: React.FC = () => {
       <Card body key={Math.random()}>
         <Row>{room}</Row>
         <Row>
-          <Col><button onClick={() => dispatch(selectRoom(room))}>Select</button></Col>
+          <Col><button onClick={() => {
+            dispatch(selectRoom(room))
+            /*socket.emit('unread-message', {
+              room: room,
+              timestamp
+            })*/
+          }}>Select</button></Col>
           <Col><button onClick={() => {
             dispatch(leaveRoom(room))
             dispatch(leaveMember(name, room))

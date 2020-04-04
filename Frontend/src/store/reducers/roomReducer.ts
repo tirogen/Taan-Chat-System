@@ -11,7 +11,7 @@ const roomReducer = (state = initialState, action: RoomAction) => {
       case 'SELECTROOM':
         return {
           selectedRoom: action.room,
-          yourRooms: state.yourRooms
+          yourRooms: state.yourRooms,
           otherRooms: state.otherRooms.filter(room => room !== action.room)
         };
       case 'JOINROOM':

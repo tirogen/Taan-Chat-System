@@ -5,7 +5,7 @@ const initialState: SocketState = {
   socket: socketIOClient('http://localhost:3001')
 }
 
-const clientReducer = (state = initialState, action: SocketAction) => {
+const socketReducer = (state = initialState, action: SocketAction) => {
     switch(action.type){
       case 'SETSOCKET':
         return {
@@ -16,4 +16,4 @@ const clientReducer = (state = initialState, action: SocketAction) => {
     }
 }
 
-export default clientReducer;
+export default socketReducer;
