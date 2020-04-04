@@ -48,3 +48,19 @@ export interface SocketAction {
 export interface SocketState {
     socket: SocketIOClient.Socket
 }
+
+export interface Message {
+    room: string,
+    message: string,
+    client: string,
+    timestamp: string
+}
+
+export interface MessageAction {
+    type: string,
+    message: Message
+}
+
+export interface MessageState {
+    messages: Message[]
+}

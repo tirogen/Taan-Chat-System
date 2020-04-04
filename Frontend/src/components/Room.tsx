@@ -2,13 +2,16 @@ import React, { useRef } from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from './../store';
-import { selectRoom, joinRoom, leaveRoom, addRoom, leaveMember, joinMember } from './../store/actions'
+import { RoomState } from './../store/type';
+import { selectRoom, joinRoom, leaveRoom, addRoom, leaveMember, joinMember, setMessage } from './../store/actions';
+import { Message } from './../store/type';
 
 const Room: React.FC = () => {
 
   const { name } = useSelector((state: AppState) => state.client)
   const { socket } = useSelector((state: AppState) => state.socket)
-  const room = useSelector((state: AppState) => state.room)
+  const { messages } = useSelector((state: AppState) => state.message)
+  const room: RoomState = useSelector((state: AppState) => state.room)
   const dispatch = useDispatch();
   const inputRoom = useRef<HTMLInputElement>(null);
 
@@ -18,14 +21,34 @@ const Room: React.FC = () => {
       <Card body key={Math.random()}>
         <Row>{room}</Row>
         <Row>
-          <Col><button onClick={() => dispatch(selectRoom(room))}>Select</button></Col>
           <Col><button onClick={() => {
-            dispatch(leaveRoom(room))
+            dispatch(selectRoom(room))
+            let lastMsg: string = '2000-01-01T14:00:00.001Z';
+            messages.map((msg: Message): void => {
+              if(msg.room === room)
+                lastMsg = msg.timestamp
+            })
+            console.log({
+              room,
+              timestamp: lastMsg
+            })
+            socket.emit('unread-message', {
+              room,
+              timestamp: lastMsg
+            }, (messages: Message[]) => {
+              if(messages) dispatch(setMessage({ room, message: '$$$$####****', client: '$$$$####****', timestamp: lastMsg }));
+              messages.forEach(msg => {
+                dispatch(setMessage(msg));
+              });
+            })
+          }}>Select</button></Col>
+          <Col><button onClick={() => {
+            dispatch(leaveRoom(room));
             dispatch(leaveMember(name, room))
             socket.emit('leave-room', {
               client: name,
               room: room
-            })
+            });
           }}>Leave</button></Col>
         </Row>
       </Card>

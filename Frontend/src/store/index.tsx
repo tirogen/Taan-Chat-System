@@ -6,13 +6,15 @@ import clientReducer from "./reducers/clientReducer";
 import roomReducer from "./reducers/roomReducer";
 import memberReducer from "./reducers/memberReducer";
 import socketReducer from "./reducers/socketReducer";
+import messageReducer from "./reducers/messageReducer";
 
 const rootReducer = combineReducers({
   counter: counterReducer,
   client: clientReducer,
   room: roomReducer,
   member: memberReducer,
-  socket: socketReducer
+  socket: socketReducer,
+  message: messageReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

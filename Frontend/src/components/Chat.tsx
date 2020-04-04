@@ -1,14 +1,8 @@
 import React, { useRef, useEffect, useState  } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from './../store';
-import { leaveMember, joinMember, newRoom } from './../store/actions'
-
-interface Message {
-    room: string,
-    message: string,
-    client: string,
-    timestamp: number
-}
+import { leaveMember, joinMember, newRoom, setMessage } from './../store/actions';
+import { Message } from './../store/type';
 
 interface Room {
   client: string,
@@ -20,15 +14,14 @@ const Chat: React.FC = () => {
   const { socket } = useSelector((state: AppState) => state.socket)
   const { selectedRoom, yourRooms } = useSelector((state: AppState) => state.room)
   const { name } = useSelector((state: AppState) => state.client)
-  const [messages, setMessage] = useState<Message[]>([]);
+  const { messages } = useSelector((state: AppState) => state.message)
   const dispatch = useDispatch();
   const conversation = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     socket.on('greet', (msg: Message) => {
-      console.log(msg)
       if(msg.room === selectedRoom)
-        setMessage([...messages, msg]);
+        dispatch(setMessage(msg))
     });
     socket.on('join-room', (msg: Room) => {
       dispatch(joinMember(msg.client, msg.room))
@@ -41,10 +34,11 @@ const Chat: React.FC = () => {
       dispatch(joinMember(room.client, room.room))
     });
     socket.on('connect', () => {
-      console.log(`your socket id is ${socket.id}`);
+      console.log(`your socket id is ${socket.id}}`);
       console.log(`is connected ${socket.connected}`);
+      if(name !== '') socket.emit('init', name);
     });
-  }, [messages, yourRooms]);
+  }, [yourRooms, name]);
 
   const other = (msg: Message): JSX.Element => { return (
     <div className="media w-50 mb-3" key={Math.random()}>
@@ -71,10 +65,12 @@ const Chat: React.FC = () => {
   const chatBox: JSX.Element[] = [];
   messages.map((msg: Message): void => {
     if(msg.room === selectedRoom)
-      if(msg.client === name)
-        chatBox.push(owner(msg))
+      if(msg.client === '$$$$####****')
+        chatBox.push(<div><small>unread</small><hr/></div>);
+      else if(msg.client === name)
+        chatBox.push(owner(msg));
       else
-        chatBox.push(other(msg))
+        chatBox.push(other(msg));
   })
 
   const sendMessage = (): void => {
@@ -82,7 +78,7 @@ const Chat: React.FC = () => {
       room: selectedRoom,
       message: conversation.current?.value,
       client: name
-    })
+    });
   }
 
   return (

@@ -12,19 +12,19 @@ const roomReducer = (state = initialState, action: RoomAction) => {
         return {
           selectedRoom: action.room,
           yourRooms: state.yourRooms,
-          otherRooms: state.otherRooms
+          otherRooms: state.otherRooms.filter(room => room !== action.room)
         };
       case 'JOINROOM':
         return {
           selectedRoom: action.room,
-          yourRooms: [...state.yourRooms, action.room],
+          yourRooms: state.yourRooms.filter(room => room !== action.room).push(action.room),
           otherRooms: state.otherRooms.filter(room => room !== action.room)
         };
       case 'LEAVEROOM':
         return {
           selectedRoom: state.selectedRoom === action.room ? '' : state.selectedRoom ,
           yourRooms: state.yourRooms.filter(room => room !== action.room),
-          otherRooms: [...state.otherRooms, action.room]
+          otherRooms: state.otherRooms.filter(room => room !== action.room).push(action.room)
         };
       case 'ADDROOM':
         return {

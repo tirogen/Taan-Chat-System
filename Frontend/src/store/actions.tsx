@@ -1,4 +1,4 @@
-import { CounterAction, ClientAction, RoomAction, MemberAction, SocketAction } from './type';
+import { CounterAction, ClientAction, RoomAction, MemberAction, SocketAction, Message, MessageAction } from './type';
 
 export const increment = (): CounterAction => {
     return {
@@ -64,5 +64,12 @@ export const setSocket = (socket: SocketIOClient.Socket): SocketAction => {
     return {
       type: 'SETSOCKET',
       socket
+    }
+}
+
+export const setMessage = (message: Message): MessageAction => {
+    return {
+      type: 'SETMESSAGE',
+      message
     }
 }
