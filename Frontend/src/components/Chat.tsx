@@ -36,7 +36,7 @@ const Chat: React.FC = () => {
     socket.on('connect', () => {
       console.log(`your socket id is ${socket.id}}`);
       console.log(`is connected ${socket.connected}`);
-      socket.emit('init', name);
+      if(name !== '') socket.emit('init', name);
     });
   }, [yourRooms, name]);
 

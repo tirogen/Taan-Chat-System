@@ -26,15 +26,13 @@ app.get('/', (req, res) => {
 io.on("connect", (socket: any) => {
   console.log("New user - %s.", socket.id);
 
-  socket.on('unread-message', async ({ room, timestamp }: Unread) => {
+  socket.on('unread-message', async ({ room, timestamp }: Unread, fn) => {
       const messages: UnreadMessage = await getUnreadMessage(room, timestamp);
-      if(messages) sockets.emit('greet', { room, message: '$$$$####****', client: '$$$$####****', timestamp });
-      messages.forEach(({ room, message, client, timestamp }) => {
-        sockets.emit('greet', { room, message, client, timestamp });
-      });
+      fn(messages);
   })
 
   socket.on('init', async (client: string) => {
+    if(client === '') return;
     await addUser(client);
     const rooms = await getYourRoom(client);
     rooms.forEach((room) => {

@@ -3,7 +3,7 @@ import { Row, Col, Card } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from './../store';
 import { RoomState } from './../store/type';
-import { selectRoom, joinRoom, leaveRoom, addRoom, leaveMember, joinMember } from './../store/actions';
+import { selectRoom, joinRoom, leaveRoom, addRoom, leaveMember, joinMember, setMessage } from './../store/actions';
 import { Message } from './../store/type';
 
 const Room: React.FC = () => {
@@ -29,12 +29,17 @@ const Room: React.FC = () => {
                 lastMsg = msg.timestamp
             })
             console.log({
-              room: room,
+              room,
               timestamp: lastMsg
             })
             socket.emit('unread-message', {
-              room: room,
+              room,
               timestamp: lastMsg
+            }, (messages: Message[]) => {
+              if(messages) dispatch(setMessage({ room, message: '$$$$####****', client: '$$$$####****', timestamp: lastMsg }));
+              messages.forEach(msg => {
+                dispatch(setMessage(msg));
+              });
             })
           }}>Select</button></Col>
           <Col><button onClick={() => {
