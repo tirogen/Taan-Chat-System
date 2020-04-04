@@ -1,0 +1,46 @@
+version: '3.3'
+
+services:
+  backend:
+    build: ./Backend
+    container_name: backend
+    volumes:
+      - ./Backend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3001:3001
+  
+  backend-secondary:
+    build: ./Backend
+    container_name: backend-secondary
+    volumes:
+      - ./Backend:/usr/src/app
+      - /usr/src/app/node_modules
+    links:
+      - backend
+    ports:
+      - 3002:3001
+
+  frontend:
+    build: ./Frontend
+    container_name: frontend
+    volumes:
+      - ./Frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    links:
+      - backend
+    ports:
+      - 3000:3000
+  
+  proxy:
+    build: ./ProxyServer
+    container_name: proxy
+    depends_on:
+      - backend
+      - backend-secondary
+    volumes:
+      - ./ProxyServer:/etc/nginx
+    links:
+      - backend
+    ports:
+      - 8080:8080
