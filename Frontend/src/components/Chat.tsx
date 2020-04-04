@@ -7,7 +7,7 @@ interface Message {
     room: string,
     message: string,
     client: string,
-    timestamp: number
+    timestamp: string
 }
 
 interface Room {
@@ -41,10 +41,11 @@ const Chat: React.FC = () => {
       dispatch(joinMember(room.client, room.room))
     });
     socket.on('connect', () => {
-      console.log(`your socket id is ${socket.id}`);
+      console.log(`your socket id is ${socket.id}}`);
       console.log(`is connected ${socket.connected}`);
+      socket.emit('init', name);
     });
-  }, [messages, yourRooms]);
+  }, [messages, yourRooms, name]);
 
   const other = (msg: Message): JSX.Element => { return (
     <div className="media w-50 mb-3" key={Math.random()}>
