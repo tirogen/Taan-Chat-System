@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { Message, Room } from "./type";
+import { Message, Room, Unread, UnreadMessage } from "./type";
 import { getUnreadMessage, addUser, addRoom, addMessage, getYourRoom, joinRoom, leaveRoom } from "./database";
 import * as SocketIO from 'socket.io';
 import * as http from "http";
@@ -26,9 +26,12 @@ app.get('/', (req, res) => {
 io.on("connect", (socket: any) => {
   console.log("New user - %s.", socket.id);
 
-  socket.on('unread-message', async ({ room: string, timestamp: string }) => {
-      const messages: Message = await getUnreadMessage(room, timestamp);
-      sockets.emit('greet', { room, message, client, timestamp });
+  socket.on('unread-message', async ({ room, timestamp }: Unread) => {
+      const messages: UnreadMessage = await getUnreadMessage(room, timestamp);
+      if(messages) sockets.emit('greet', { room, message: '$$$$####****', client: '$$$$####****', timestamp });
+      messages.forEach(({ room, message, client, timestamp }) => {
+        sockets.emit('greet', { room, message, client, timestamp });
+      });
   })
 
   socket.on('init', async (client: string) => {

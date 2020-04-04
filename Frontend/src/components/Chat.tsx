@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState  } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from './../store';
-import { leaveMember, joinMember, newRoom, setMessage } from './../store/actions'
-import { Message } from './../store/type'
+import { leaveMember, joinMember, newRoom, setMessage } from './../store/actions';
+import { Message } from './../store/type';
 
 interface Room {
   client: string,
@@ -20,7 +20,6 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     socket.on('greet', (msg: Message) => {
-      console.log(msg)
       if(msg.room === selectedRoom)
         dispatch(setMessage(msg))
     });
@@ -66,10 +65,12 @@ const Chat: React.FC = () => {
   const chatBox: JSX.Element[] = [];
   messages.map((msg: Message): void => {
     if(msg.room === selectedRoom)
-      if(msg.client === name)
-        chatBox.push(owner(msg))
+      if(msg.client === '$$$$####****')
+        chatBox.push(<div><small>unread</small><hr/></div>);
+      else if(msg.client === name)
+        chatBox.push(owner(msg));
       else
-        chatBox.push(other(msg))
+        chatBox.push(other(msg));
   })
 
   const sendMessage = (): void => {
@@ -77,7 +78,7 @@ const Chat: React.FC = () => {
       room: selectedRoom,
       message: conversation.current?.value,
       client: name
-    })
+    });
   }
 
   return (

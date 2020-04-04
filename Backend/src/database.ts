@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import * as mysql from "mysql";
-import { Message } from "./type";
+import { UnreadMessage } from "./type";
 
 dotenv.config();
 
@@ -11,9 +11,9 @@ const connection: mysql.Connection = mysql.createConnection({
   database: process.env.MYSQL_DATABASE
 });
 
-const getUnreadMessage = (room_name: string, timestamp: number): Promise<Message[]> => {
-  return new Promise<Message[]>((resolve, reject) => {
-    connection.query('SELECT rooms.name as room, message, users.name as client FROM messages JOIN users ON users.id=messages.user_id JOIN rooms ON rooms.id=messages.room_id WHERE room_id=(SELECT id FROM rooms WHERE name=?) AND created_at>?', [room_name, timestamp], (err: mysql.MysqlError, result: mysql.OkPacket) => {
+const getUnreadMessage = (room_name: string, timestamp: number): Promise<UnreadMessage[]> => {
+  return new Promise<UnreadMessage[]>((resolve, reject) => {
+    connection.query('SELECT rooms.name as room, message, users.name as client, created_at as timestamp FROM messages JOIN users ON users.id=messages.user_id JOIN rooms ON rooms.id=messages.room_id WHERE room_id=(SELECT id FROM rooms WHERE name=?) AND created_at>?', [room_name, timestamp], (err: mysql.MysqlError, result: mysql.OkPacket) => {
         if(err) reject([]);
         resolve(result);
     });

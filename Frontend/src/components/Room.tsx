@@ -3,12 +3,14 @@ import { Row, Col, Card } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from './../store';
 import { RoomState } from './../store/type';
-import { selectRoom, joinRoom, leaveRoom, addRoom, leaveMember, joinMember } from './../store/actions'
+import { selectRoom, joinRoom, leaveRoom, addRoom, leaveMember, joinMember } from './../store/actions';
+import { Message } from './../store/type';
 
 const Room: React.FC = () => {
 
   const { name } = useSelector((state: AppState) => state.client)
   const { socket } = useSelector((state: AppState) => state.socket)
+  const { messages } = useSelector((state: AppState) => state.message)
   const room: RoomState = useSelector((state: AppState) => state.room)
   const dispatch = useDispatch();
   const inputRoom = useRef<HTMLInputElement>(null);
@@ -21,18 +23,27 @@ const Room: React.FC = () => {
         <Row>
           <Col><button onClick={() => {
             dispatch(selectRoom(room))
-            /*socket.emit('unread-message', {
+            let lastMsg: string = '2000-01-01T14:00:00.001Z';
+            messages.map((msg: Message): void => {
+              if(msg.room === room)
+                lastMsg = msg.timestamp
+            })
+            console.log({
               room: room,
-              timestamp
-            })*/
+              timestamp: lastMsg
+            })
+            socket.emit('unread-message', {
+              room: room,
+              timestamp: lastMsg
+            })
           }}>Select</button></Col>
           <Col><button onClick={() => {
-            dispatch(leaveRoom(room))
+            dispatch(leaveRoom(room));
             dispatch(leaveMember(name, room))
             socket.emit('leave-room', {
               client: name,
               room: room
-            })
+            });
           }}>Leave</button></Col>
         </Row>
       </Card>
