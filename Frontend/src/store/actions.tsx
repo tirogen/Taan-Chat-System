@@ -1,4 +1,4 @@
-import { CounterAction, ClientAction, RoomAction, MemberAction, SocketAction } from './type';
+import { CounterAction, ClientAction, RoomAction, MemberAction, SocketAction, Message, MessageAction } from './type';
 
 export const increment = (): CounterAction => {
     return {

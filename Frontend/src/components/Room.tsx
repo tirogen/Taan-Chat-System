@@ -2,13 +2,14 @@ import React, { useRef } from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from './../store';
+import { RoomState } from './../store/type';
 import { selectRoom, joinRoom, leaveRoom, addRoom, leaveMember, joinMember } from './../store/actions'
 
 const Room: React.FC = () => {
 
   const { name } = useSelector((state: AppState) => state.client)
   const { socket } = useSelector((state: AppState) => state.socket)
-  const room = useSelector((state: AppState) => state.room)
+  const room: RoomState = useSelector((state: AppState) => state.room)
   const dispatch = useDispatch();
   const inputRoom = useRef<HTMLInputElement>(null);
 
