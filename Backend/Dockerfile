@@ -1,4 +1,4 @@
-FROM node
+FROM node:13-alpine
 
 WORKDIR /usr/src/app
 
@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 3001
 
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "run", "watch" ]

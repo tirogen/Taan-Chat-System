@@ -44,3 +44,11 @@ services:
       - backend
     ports:
       - 8080:8080
+  
+  database:
+    build: ./Database
+    container_name: database
+    links:
+      - backend
+    ports:
+      - 3306:3306
