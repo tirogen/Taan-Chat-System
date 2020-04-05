@@ -13,7 +13,7 @@ const connection: mysql.Connection = mysql.createConnection({
 
 const getUnreadMessage = (room_name: string, timestamp: number): Promise<UnreadMessage[]> => {
   return new Promise<UnreadMessage[]>((resolve, reject) => {
-    connection.query('SELECT rooms.name as room, message, users.name as client, created_at as timestamp FROM messages JOIN users ON users.id=messages.user_id JOIN rooms ON rooms.id=messages.room_id WHERE room_id=(SELECT id FROM rooms WHERE name=?) AND created_at>?', [room_name, timestamp], (err: mysql.MysqlError, result: mysql.OkPacket) => {
+    connection.query('SELECT rooms.name as room, message, users.name as client, created_at as timestamp FROM messages JOIN users ON users.id=messages.user_id JOIN rooms ON rooms.id=messages.room_id WHERE room_id=(SELECT id FROM rooms WHERE name=?) AND created_at>? ORDER BY created_at ASC', [room_name, timestamp], (err: mysql.MysqlError, result: mysql.OkPacket) => {
         if(err) reject([]);
         resolve(result);
     });
