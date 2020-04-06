@@ -7,11 +7,13 @@ services:
     volumes:
       - ./Backend:/usr/src/app
       - /usr/src/app/node_modules
+    links:
+      - database
     ports:
       - 3001:3001
   
   backend-secondary:
-    build: ./Backend
+    image: taan-chat-system_backend
     container_name: backend-secondary
     volumes:
       - ./Backend:/usr/src/app
@@ -27,8 +29,6 @@ services:
     volumes:
       - ./Frontend:/usr/src/app
       - /usr/src/app/node_modules
-    links:
-      - backend
     ports:
       - 3000:3000
   
@@ -48,7 +48,5 @@ services:
   database:
     build: ./Database
     container_name: database
-    links:
-      - backend
     ports:
       - 3306:3306
