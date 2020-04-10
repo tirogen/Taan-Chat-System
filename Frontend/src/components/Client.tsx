@@ -23,7 +23,7 @@ const Client: React.FC = () => {
         <div className="call">
           <div>
             <figure className="mb-4 avatar avatar-xl">
-              <img src="https://scontent.furt1-1.fna.fbcdn.net/v/t1.0-9/24301098_1053872401421173_5714868392460303811_n.jpg?_nc_cat=102&_nc_sid=110474&_nc_eui2=AeHKBp1X3Q_CFvOgAVxVVVsB5SmR4t1MMOnlKZHi3Uww6VrOl9PsKHg3drahHKu0cSzYmcq1kVch8PzRqBnuAE0c&_nc_ohc=cYa1eq4nkVkAX85g43K&_nc_ht=scontent.furt1-1.fna&oh=a5c0659ac5d2ffeb400c797394e8df33&oe=5EB787E7" className="rounded-circle" />
+              <img src="/banana.jpg" className="rounded-circle" />
             </figure>
             <input type="text" ref={inputName} className="form-control" placeholder="Choose Your Name" />
             <button type="button" className="btn btn-success btn-block mt-3" onClick={() => {
@@ -50,7 +50,7 @@ const Client: React.FC = () => {
           <li data-toggle="tooltip" title="" data-placement="right" data-original-title="User menu">
             <a href="#">
               <figure className="avatar">
-                <img src="http://slek.laborasyon.com/demos/dark/dist/media/img/women_avatar5.jpg" className="rounded-circle" alt="image" />
+                <img src="/peoples/1.png" className="rounded-circle" alt="image" />
               </figure>
             </a>
           </li>

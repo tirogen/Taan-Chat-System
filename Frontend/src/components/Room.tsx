@@ -72,7 +72,7 @@ const Room: React.FC = () => {
     otherRooms.push(
       <li className="list-group-item" key={Math.random()}>
           <figure className="avatar">
-            <img src="http://slek.laborasyon.com/demos/dark/dist/media/img/man_avatar2.jpg" className="rounded-circle" />
+            <img src="/banana.jpg" className="rounded-circle" />
           </figure>
         <div className="users-list-body">
           <div>
