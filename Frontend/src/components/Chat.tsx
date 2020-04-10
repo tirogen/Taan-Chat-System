@@ -89,11 +89,13 @@ const Chat: React.FC = () => {
   })
 
   const sendMessage = (): void => {
+    if(conversation.current?.value.length == 0) return;
     socket.emit('greet', {
       room: selectedRoom,
       message: conversation.current?.value,
       client: name
     });
+    conversation.current.value = "";
   }
 
   return (
@@ -115,7 +117,7 @@ const Chat: React.FC = () => {
         </div>
       </div>
       <div className="chat-footer">
-        <form onSubmit={e => { e.preventDefault(); }}>
+        <form onSubmit={e => e.preventDefault()}>
           <input type="text" ref={conversation} className="form-control" placeholder="Write a message." />
           <div className="form-buttons">
             <button className="btn btn-primary" onClick={sendMessage}><i className="fa fa-paper-plane"></i></button>

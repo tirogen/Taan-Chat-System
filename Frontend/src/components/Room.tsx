@@ -136,7 +136,7 @@ const Room: React.FC = () => {
       <div className="sidebar-group">
         <div className="sidebar active">
           <header>
-            <span>Your Room</span>
+            <span>Your Rooms</span>
             <ul className="list-inline">
               <li className="list-inline-item">
                 <button className="btn btn-outline-light" onClick={() => setModalShow(true)}>
@@ -153,7 +153,7 @@ const Room: React.FC = () => {
         </div>
         <div className="sidebar active">
           <header>
-            <span>Chats</span>
+            <span>Other Rooms</span>
           </header>
           <div className="sidebar-body hidescroll">
             <ul className="list-group list-group-flush">
