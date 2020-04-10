@@ -18,6 +18,7 @@ const Chat: React.FC = () => {
   const { messages } = useSelector((state: AppState) => state.message)
   const dispatch = useDispatch();
   const conversation = useRef<HTMLInputElement>(null);
+  const chatRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     socket.on('greet', (msg: Message) => {
@@ -39,7 +40,12 @@ const Chat: React.FC = () => {
       console.log(`is connected ${socket.connected}`);
       if(name !== '') socket.emit('init', name);
     });
+
   }, [yourRooms, name]);
+
+  useEffect(() => {
+    chatRef.current?.scrollTo(0, chatRef.current?.scrollHeight);
+  }, [messages]);
 
   const other = (msg: Message): JSX.Element => { return (
     <div className="message-item" key={Math.random()}>
@@ -103,13 +109,13 @@ const Chat: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="chat-body hidescroll">
+      <div className="chat-body hidescroll" ref={chatRef}>
         <div className="messages">
           {chatBox}
         </div>
       </div>
       <div className="chat-footer">
-        <form>
+        <form onSubmit={e => { e.preventDefault(); }}>
           <input type="text" ref={conversation} className="form-control" placeholder="Write a message." />
           <div className="form-buttons">
             <button className="btn btn-primary" onClick={sendMessage}><i className="fa fa-paper-plane"></i></button>
