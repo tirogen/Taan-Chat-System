@@ -41,24 +41,32 @@ const Chat: React.FC = () => {
   }, [yourRooms, name]);
 
   const other = (msg: Message): JSX.Element => { return (
-    <div className="media w-50 mb-3" key={Math.random()}>
-      <div className="media-body ml-3">
-        <div className="bg-light rounded py-2 px-3 mb-2">
-          <p className="text-small mb-0 text-muted">{msg.message}</p>
+    <div className="message-item" key={Math.random()}>
+        <div className="message-avatar">
+            <figure className="avatar">
+                <img src="http://slek.laborasyon.com/demos/dark/dist/media/img/man_avatar3.jpg" className="rounded-circle" />
+            </figure>
+            <div>
+                <h5>{msg.client}</h5>
+                <div className="time">{msg.timestamp}</div>
+            </div>
         </div>
-        <p className="small text-muted">{msg.client} - {msg.timestamp}</p>
-      </div>
+        <div className="message-content">{msg.message}</div>
     </div>
   )}
 
   const owner = (msg: Message): JSX.Element => { return (
-    <div className="media w-50 ml-auto mb-3" key={Math.random()}>
-      <div className="media-body">
-        <div className="bg-primary rounded py-2 px-3 mb-2">
-          <p className="text-small mb-0 text-white">{msg.message}</p>
+    <div className="message-item outgoing-message" key={Math.random()}>
+        <div className="message-avatar">
+            <figure className="avatar">
+                <img src="http://slek.laborasyon.com/demos/dark/dist/media/img/women_avatar5.jpg" className="rounded-circle" />
+            </figure>
+            <div>
+                <h5>{msg.client}</h5>
+                <div className="time">{msg.timestamp}</div>
+            </div>
         </div>
-        <p className="small text-muted">{msg.client} - {msg.timestamp}</p>
-      </div>
+        <div className="message-content">{msg.message}</div>
     </div>
   )}
 
@@ -66,7 +74,7 @@ const Chat: React.FC = () => {
   messages.map((msg: Message): void => {
     if(msg.room === selectedRoom)
       if(msg.client === '$$$$####****')
-        chatBox.push(<div><small>unread</small><hr/></div>);
+        chatBox.push(<div className="message-item messages-divider" data-label="message unread"></div>);
       else if(msg.client === name)
         chatBox.push(owner(msg));
       else
@@ -82,19 +90,33 @@ const Chat: React.FC = () => {
   }
 
   return (
-    <>
-      <div className="px-4 py-5 chat-box bg-white">
-        {chatBox}
-      </div>
-      <div className="bg-light">
-        <div className="input-group">
-          <input type="text" ref={conversation} placeholder="Type a message" className="form-control rounded-0 border-0 py-4 bg-light" />
-          <div className="input-group-append">
-            <button className="btn btn-link" onClick={sendMessage}><i className="fa fa-paper-plane"></i></button>
+  <>
+    <div className="chat">
+      <div className="chat-header">
+        <div className="chat-header-user">
+          <figure className="avatar">
+            <img src="http://slek.laborasyon.com/demos/dark/dist/media/img/man_avatar3.jpg" className="rounded-circle" />
+          </figure>
+          <div>
+            <h5>{selectedRoom}</h5>
           </div>
         </div>
       </div>
-    </>
+      <div className="chat-body hidescroll">
+        <div className="messages">
+          {chatBox}
+        </div>
+      </div>
+      <div className="chat-footer">
+        <form>
+          <input type="text" ref={conversation} className="form-control" placeholder="Write a message." />
+          <div className="form-buttons">
+            <button className="btn btn-primary" onClick={sendMessage}><i className="fa fa-paper-plane"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </>
   )
 }
 

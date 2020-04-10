@@ -1,5 +1,4 @@
 import React from 'react';
-import { ListGroup, Card } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { AppState } from './../store';
 import { MemberState } from './../store/type'
@@ -11,19 +10,38 @@ const Member: React.FC = () => {
 
   const listMembers: JSX.Element[] = [];
   members.map((member: any): void => {
-    if(member.room === selectedRoom)
-      listMembers.push(<ListGroup.Item key={Math.random()}>{member.member}</ListGroup.Item>)
+    if(member.room === selectedRoom){
+      listMembers.push(
+        <li className="list-group-item" key={Math.random()}>
+          <div>
+            <figure className="avatar">
+              <img src="http://slek.laborasyon.com/demos/dark/dist/media/img/man_avatar2.jpg" className="rounded-circle" />
+            </figure>
+          </div>
+          <div className="users-list-body">
+            <div>
+              <h5>{member.member}</h5>
+            </div>
+          </div>
+        </li>
+      )
+    }
   })
 
   return (
     <>
-      <h2>Selected Room</h2>
-      {selectedRoom}
-      <Card>
-        <ListGroup variant="flush">
-          {listMembers}
-        </ListGroup>
-      </Card>
+      <div className="sidebar-group">
+        <div className="sidebar active">
+          <header>
+            <span>{selectedRoom}</span>
+          </header>
+          <div className="sidebar-body hidescroll">
+            <ul className="list-group list-group-flush">
+              {listMembers}
+            </ul>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
