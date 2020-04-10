@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from './../store';
 import { setName } from './../store/actions';
 import { Modal } from 'react-bootstrap';
+import { people } from './../global';
 
 const Client: React.FC = () => {
 
@@ -41,7 +42,7 @@ const Client: React.FC = () => {
         <ul>
           <li className="logo">
             <a href="#">
-              <i className="fa fa-comments"></i>
+              <img src={name ? people(name) : '/banana.jpg'} className="rounded-circle w-75" />
             </a>
           </li>
           <li className="brackets">
@@ -50,7 +51,7 @@ const Client: React.FC = () => {
           <li data-toggle="tooltip" title="" data-placement="right" data-original-title="User menu">
             <a href="#">
               <figure className="avatar">
-                <img src="/peoples/1.png" className="rounded-circle" alt="image" />
+                <img src={people(name)} className="rounded-circle" alt="image" />
               </figure>
             </a>
           </li>

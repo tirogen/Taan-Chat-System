@@ -5,6 +5,7 @@ import { AppState } from './../store';
 import { RoomState } from './../store/type';
 import { selectRoom, joinRoom, leaveRoom, addRoom, leaveMember, joinMember, setMessage } from './../store/actions';
 import { Message } from './../store/type';
+import { animal } from './../global';
 
 const Room: React.FC = () => {
 
@@ -21,7 +22,7 @@ const Room: React.FC = () => {
     yourRooms.push(
       <li className="list-group-item" key={Math.random()}>
           <figure className="avatar">
-            <img src="http://slek.laborasyon.com/demos/dark/dist/media/img/man_avatar2.jpg" className="rounded-circle" />
+            <img src={animal(room)} className="rounded-circle" />
           </figure>
         <div className="users-list-body">
           <div>
@@ -72,7 +73,7 @@ const Room: React.FC = () => {
     otherRooms.push(
       <li className="list-group-item" key={Math.random()}>
           <figure className="avatar">
-            <img src="/banana.jpg" className="rounded-circle" />
+            <img src={animal(room)} className="rounded-circle" />
           </figure>
         <div className="users-list-body">
           <div>
@@ -114,7 +115,7 @@ const Room: React.FC = () => {
           <div className="call">
             <div>
               <figure className="mb-4 avatar avatar-xl">
-                <img src="https://scontent.furt1-1.fna.fbcdn.net/v/t1.0-9/24301098_1053872401421173_5714868392460303811_n.jpg?_nc_cat=102&_nc_sid=110474&_nc_eui2=AeHKBp1X3Q_CFvOgAVxVVVsB5SmR4t1MMOnlKZHi3Uww6VrOl9PsKHg3drahHKu0cSzYmcq1kVch8PzRqBnuAE0c&_nc_ohc=cYa1eq4nkVkAX85g43K&_nc_ht=scontent.furt1-1.fna&oh=a5c0659ac5d2ffeb400c797394e8df33&oe=5EB787E7" className="rounded-circle" />
+                <img src="/banana.jpg" className="rounded-circle" />
               </figure>
               <input type="text" ref={inputRoom} className="form-control" placeholder="Type a room's name" />
               <button type="button" className="btn btn-success btn-block mt-3" onClick={() => {

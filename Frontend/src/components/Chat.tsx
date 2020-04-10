@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from './../store';
 import { leaveMember, joinMember, newRoom, setMessage } from './../store/actions';
 import { Message } from './../store/type';
+import { people, animal } from './../global';
 
 interface Room {
   client: string,
@@ -44,7 +45,7 @@ const Chat: React.FC = () => {
     <div className="message-item" key={Math.random()}>
         <div className="message-avatar">
             <figure className="avatar">
-                <img src="http://slek.laborasyon.com/demos/dark/dist/media/img/man_avatar3.jpg" className="rounded-circle" />
+                <img src={people(msg.client)} className="rounded-circle" />
             </figure>
             <div>
                 <h5>{msg.client}</h5>
@@ -59,7 +60,7 @@ const Chat: React.FC = () => {
     <div className="message-item outgoing-message" key={Math.random()}>
         <div className="message-avatar">
             <figure className="avatar">
-                <img src="http://slek.laborasyon.com/demos/dark/dist/media/img/women_avatar5.jpg" className="rounded-circle" />
+                <img src={people(msg.client)} className="rounded-circle" />
             </figure>
             <div>
                 <h5>{msg.client}</h5>
@@ -95,7 +96,7 @@ const Chat: React.FC = () => {
       <div className="chat-header">
         <div className="chat-header-user">
           <figure className="avatar">
-            <img src="http://slek.laborasyon.com/demos/dark/dist/media/img/man_avatar3.jpg" className="rounded-circle" />
+            <img src={selectedRoom ? animal(selectedRoom) : '/banana.jpg'} className="rounded-circle" />
           </figure>
           <div>
             <h5>{selectedRoom}</h5>

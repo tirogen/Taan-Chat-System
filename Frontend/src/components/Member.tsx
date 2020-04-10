@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { AppState } from './../store';
 import { MemberState } from './../store/type'
+import { people } from './../global';
 
 const Member: React.FC = () => {
 
@@ -15,7 +16,7 @@ const Member: React.FC = () => {
         <li className="list-group-item" key={Math.random()}>
           <div>
             <figure className="avatar">
-              <img src="http://slek.laborasyon.com/demos/dark/dist/media/img/man_avatar2.jpg" className="rounded-circle" />
+              <img src={people(member.member)} className="rounded-circle" />
             </figure>
           </div>
           <div className="users-list-body">
