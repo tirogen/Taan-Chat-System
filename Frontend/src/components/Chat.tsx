@@ -17,8 +17,8 @@ const Chat: React.FC = () => {
   const { name } = useSelector((state: AppState) => state.client)
   const { messages } = useSelector((state: AppState) => state.message)
   const dispatch = useDispatch();
-  const conversation = useRef<HTMLInputElement>(null);
-  const chatRef = useRef<HTMLDivElement>(null);
+  const conversation = useRef<HTMLInputElement>(document.createElement("input"));
+  const chatRef = useRef<HTMLDivElement>(document.createElement("div"));
 
   useEffect(() => {
     socket.on('greet', (msg: Message) => {
