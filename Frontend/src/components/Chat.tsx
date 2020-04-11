@@ -12,18 +12,28 @@ interface Room {
 
 const Chat: React.FC = () => {
 
-  const { socket } = useSelector((state: AppState) => state.socket)
-  const { selectedRoom, yourRooms } = useSelector((state: AppState) => state.room)
-  const { name } = useSelector((state: AppState) => state.client)
-  const { messages } = useSelector((state: AppState) => state.message)
+  const { socket } = useSelector((state: AppState) => state.socket);
+  const { selectedRoom } = useSelector((state: AppState) => state.room);
+  const { name } = useSelector((state: AppState) => state.client);
+  const { messages } = useSelector((state: AppState) => state.message);
   const dispatch = useDispatch();
   const conversation = useRef<HTMLInputElement>(document.createElement("input"));
   const chatRef = useRef<HTMLDivElement>(document.createElement("div"));
 
+  const [slRoom, setSlRoom] = useState(selectedRoom);
+  useEffect(() => {
+    setSlRoom(selectedRoom);
+  }, [selectedRoom]);
+
   useEffect(() => {
     socket.on('greet', (msg: Message) => {
-      if(msg.room === selectedRoom)
-        dispatch(setMessage(msg))
+      setSlRoom(thisRoom => {
+        console.log(`comming is ${msg.room} select is ${thisRoom} is equal ${msg.room === thisRoom}`);
+        if(msg.room === thisRoom){
+          dispatch(setMessage(msg))
+        }
+        return thisRoom;
+      });
     });
     socket.on('join-room', (msg: Room) => {
       dispatch(joinMember(msg.client, msg.room))
@@ -35,16 +45,18 @@ const Chat: React.FC = () => {
       dispatch(newRoom(room.room))
       dispatch(joinMember(room.client, room.room))
     });
+  }, []);
+
+  useEffect(() => {
     socket.on('connect', () => {
       console.log(`your socket id is ${socket.id}}`);
       console.log(`is connected ${socket.connected}`);
       if(name !== '') socket.emit('init', name);
     });
-
-  }, [yourRooms, name]);
+  }, [name]);
 
   useEffect(() => {
-    chatRef.current?.scrollTo(0, chatRef.current?.scrollHeight);
+    chatRef.current.scrollTo(0, chatRef.current.scrollHeight);
   }, [messages]);
 
   const other = (msg: Message): JSX.Element => { return (
@@ -81,7 +93,7 @@ const Chat: React.FC = () => {
   messages.map((msg: Message): void => {
     if(msg.room === selectedRoom)
       if(msg.client === '$$$$####****')
-        chatBox.push(<div className="message-item messages-divider" data-label="message unread"></div>);
+        chatBox.push(<div className="message-item messages-divider" data-label="message unread" key={Math.random()}></div>);
       else if(msg.client === name)
         chatBox.push(owner(msg));
       else
@@ -92,7 +104,7 @@ const Chat: React.FC = () => {
     if(conversation.current?.value.length == 0) return;
     socket.emit('greet', {
       room: selectedRoom,
-      message: conversation.current?.value,
+      message: conversation.current.value,
       client: name
     });
     conversation.current.value = "";
