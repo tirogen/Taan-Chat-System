@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from './../store';
 import { RoomState } from './../store/type';
@@ -18,11 +18,12 @@ const Room: React.FC = () => {
   const [modalShow, setModalShow] = useState(false);
 
   const yourRooms: JSX.Element[] = [];
+  // eslint-disable-next-line
   room.yourRooms.map((room: string): void => {
     yourRooms.push(
       <li className="list-group-item" key={Math.random()}>
           <figure className="avatar">
-            <img src={animal(room)} className="rounded-circle" />
+            <img src={animal(room)} className="rounded-circle" alt="avatar" />
           </figure>
         <div className="users-list-body">
           <div>
@@ -33,6 +34,7 @@ const Room: React.FC = () => {
                   <button className="btn btn-primary btn-sm" onClick={() => {
                     dispatch(selectRoom(room))
                     let lastMsg: string = '2000-01-01T14:00:00.001Z';
+                    // eslint-disable-next-line
                     messages.map((msg: Message): void => {
                       if (msg.room === room)
                         lastMsg = msg.timestamp
@@ -65,11 +67,12 @@ const Room: React.FC = () => {
   })
 
   const otherRooms: JSX.Element[] = [];
+  // eslint-disable-next-line
   room.otherRooms.map((room: string): void => {
     otherRooms.push(
       <li className="list-group-item" key={Math.random()}>
           <figure className="avatar">
-            <img src={animal(room)} className="rounded-circle" />
+            <img src={animal(room)} className="rounded-circle" alt="avatar" />
           </figure>
         <div className="users-list-body">
           <div>
@@ -111,7 +114,7 @@ const Room: React.FC = () => {
           <div className="call">
             <div>
               <figure className="mb-4 avatar avatar-xl">
-                <img src="/taan.jpg" className="rounded-circle" />
+                <img src="/taan.jpg" className="rounded-circle" alt="avatar" />
               </figure>
               <input type="text" ref={inputRoom} className="form-control" placeholder="Type a room's name" />
               <button type="button" className="btn btn-success btn-block mt-3" onClick={() => {

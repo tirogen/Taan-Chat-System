@@ -1,6 +1,6 @@
 const people = (name: string): string => {
-  let hash: number = 0, i: number = 0, total: number= 0;
-  if(name.length == 0) return `/peoples/1.png`;
+  let i: number = 0, total: number= 0;
+  if(name.length === 0) return `/peoples/1.png`;
   for(i = 0; i < name.length; i++){
     total += name.charCodeAt(i);
   }
@@ -8,8 +8,8 @@ const people = (name: string): string => {
 }
 
 const animal = (name: string): string => {
-  let hash: number = 0, i: number = 0, total: number= 0;
-  if(name.length == 0) return `/animals/1.jpg`;
+  let i: number = 0, total: number= 0;
+  if(name.length === 0) return `/animals/1.jpg`;
   for(i = 0; i < name.length; i++){
     total += name.charCodeAt(i);
   }

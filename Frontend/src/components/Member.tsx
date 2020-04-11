@@ -10,13 +10,14 @@ const Member: React.FC = () => {
   const { members } : MemberState = useSelector((state: AppState) => state.member)
 
   const listMembers: JSX.Element[] = [];
+  // eslint-disable-next-line
   members.map((member: any): void => {
     if(member.room === selectedRoom){
       listMembers.push(
         <li className="list-group-item" key={Math.random()}>
           <div>
             <figure className="avatar">
-              <img src={people(member.member)} className="rounded-circle" />
+              <img src={people(member.member)} className="rounded-circle" alt="avatar"/>
             </figure>
           </div>
           <div className="users-list-body">

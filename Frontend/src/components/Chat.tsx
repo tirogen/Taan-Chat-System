@@ -21,7 +21,7 @@ const Chat: React.FC = () => {
   const conversation = useRef<HTMLInputElement>(document.createElement("input"));
   const chatRef = useRef<HTMLDivElement>(document.createElement("div"));
 
-  const [slRoom, setSlRoom] = useState(selectedRoom);
+  const [, setSlRoom] = useState(selectedRoom);
   useEffect(() => {
     setSlRoom(selectedRoom);
   }, [selectedRoom]);
@@ -47,6 +47,7 @@ const Chat: React.FC = () => {
       dispatch(newRoom(room.room))
       dispatch(joinMember(room.client, room.room))
     });
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -55,6 +56,7 @@ const Chat: React.FC = () => {
       console.log(`is connected ${socket.connected}`);
       if(name !== '') socket.emit('init', name);
     });
+    // eslint-disable-next-line
   }, [name]);
 
   useEffect(() => {
@@ -65,7 +67,7 @@ const Chat: React.FC = () => {
     <div className="message-item" key={Math.random()}>
         <div className="message-avatar">
             <figure className="avatar">
-                <img src={people(msg.client)} className="rounded-circle" />
+                <img src={people(msg.client)} className="rounded-circle" alt="avatar" />
             </figure>
             <div>
                 <h5>{msg.client}</h5>
@@ -80,7 +82,7 @@ const Chat: React.FC = () => {
     <div className="message-item outgoing-message" key={Math.random()}>
         <div className="message-avatar">
             <figure className="avatar">
-                <img src={people(msg.client)} className="rounded-circle" />
+                <img src={people(msg.client)} className="rounded-circle" alt="avatar" />
             </figure>
             <div>
                 <h5>{msg.client}</h5>
@@ -92,6 +94,7 @@ const Chat: React.FC = () => {
   )}
 
   const chatBox: JSX.Element[] = [];
+  // eslint-disable-next-line
   messages.map((msg: Message): void => {
     if(msg.room === selectedRoom)
       if(msg.client === '$$$$####****')
@@ -103,7 +106,7 @@ const Chat: React.FC = () => {
   })
 
   const sendMessage = (): void => {
-    if(conversation.current?.value.length == 0) return;
+    if(conversation.current.value.length === 0) return;
     socket.emit('greet', {
       room: selectedRoom,
       message: conversation.current.value,
@@ -118,7 +121,7 @@ const Chat: React.FC = () => {
       <div className="chat-header">
         <div className="chat-header-user">
           <figure className="avatar avatarSize">
-            <img src={selectedRoom ? animal(selectedRoom) : '/taan.jpg'} className="rounded-circle" />
+            <img src={selectedRoom ? animal(selectedRoom) : '/taan.jpg'} className="rounded-circle" alt="avatar" />
           </figure>
           <div>
             <h5>{selectedRoom}</h5>
