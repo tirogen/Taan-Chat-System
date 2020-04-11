@@ -8,7 +8,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const PORT: number = process.env.SOCKET_PORT;
+const PORT: string | undefined = process.env.SOCKET_PORT;
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app)
@@ -26,8 +26,8 @@ app.get('/', (req, res) => {
 io.on("connect", (socket: any) => {
   console.log("New user - %s.", socket.id);
 
-  socket.on('unread-message', async ({ room, timestamp }: Unread, fn) => {
-      const messages: UnreadMessage = await getUnreadMessage(room, timestamp);
+  socket.on('unread-message', async ({ room, timestamp }: Unread, fn: any) => {
+      const messages: UnreadMessage[] = await getUnreadMessage(room, timestamp);
       fn(messages);
   })
 
@@ -35,7 +35,7 @@ io.on("connect", (socket: any) => {
     if(client === '') return;
     await addUser(client);
     const rooms = await getYourRoom(client);
-    rooms.forEach((room) => {
+    rooms.forEach((room: any) => {
       socket.join(room.name);
       io.sockets.emit('join-room', {client, room: room.name});
     });
@@ -66,7 +66,7 @@ io.on("connect", (socket: any) => {
   socket.on('greet', async ({ room, message, client }: Message) => {
       console.log(`${client} said ${message} from ${room}`);
       const timestamp = new Date();
-      await addMessage(message, client, room, timestamp);
+      await addMessage(message, client, room, timestamp.toString());
       io.to(room).emit('greet', { room, message, client, timestamp });
   })
 });
