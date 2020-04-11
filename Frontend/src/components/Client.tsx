@@ -24,7 +24,7 @@ const Client: React.FC = () => {
         <div className="call">
           <div>
             <figure className="mb-4 avatar avatar-xl">
-              <img src="/banana.jpg" className="rounded-circle" />
+              <img src="/taan.jpg" className="rounded-circle" />
             </figure>
             <input type="text" ref={inputName} className="form-control" placeholder="Choose Your Name" />
             <button type="button" className="btn btn-success btn-block mt-3" onClick={() => {
@@ -42,7 +42,7 @@ const Client: React.FC = () => {
         <ul>
           <li className="logo">
             <a href="#">
-              <img src={name ? people(name) : '/banana.jpg'} className="rounded-circle w-75" />
+              <img src={name ? people(name) : '/taan.jpg'} className="rounded-circle w-75" />
             </a>
           </li>
           <li className="brackets">

@@ -12,6 +12,11 @@
 	background-color: #555;
 }
 
+.avatarSize{
+	width: 4rem !important;
+	height: 4rem !important;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@100;400;700&display=swap');
 @import 'app.min.css';
 @import '~bootstrap/scss/bootstrap.scss';

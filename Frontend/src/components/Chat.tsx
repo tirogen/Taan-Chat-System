@@ -117,8 +117,8 @@ const Chat: React.FC = () => {
     <div className="chat">
       <div className="chat-header">
         <div className="chat-header-user">
-          <figure className="avatar">
-            <img src={selectedRoom ? animal(selectedRoom) : '/banana.jpg'} className="rounded-circle" />
+          <figure className="avatar avatarSize">
+            <img src={selectedRoom ? animal(selectedRoom) : '/taan.jpg'} className="rounded-circle" />
           </figure>
           <div>
             <h5>{selectedRoom}</h5>
