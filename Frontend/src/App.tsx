@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'react-bootstrap';
 import Client from './components/Client';
 import Room from './components/Room';
 import Member from './components/Member';
@@ -23,17 +22,14 @@ class App extends Component<AppProps> {
 
   render() {
     return (
-      <>
-        <Row>
-          <Col>Top</Col>
-        </Row>
-        <Row>
-          <Col md={2}><Client /></Col>
-          <Col md={3}><Room /></Col>
-          <Col md={2}><Member /></Col>
-          <Col><Chat /></Col>
-        </Row>
-      </>
+      <div className="layout">
+        <Client />
+          <div className="content">
+              <Room />
+              <Member />
+              <Chat />
+          </div>
+      </div>
     );
   }
 }

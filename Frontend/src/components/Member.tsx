@@ -1,8 +1,8 @@
 import React from 'react';
-import { ListGroup, Card } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { AppState } from './../store';
 import { MemberState } from './../store/type'
+import { people } from './../global';
 
 const Member: React.FC = () => {
 
@@ -10,20 +10,40 @@ const Member: React.FC = () => {
   const { members } : MemberState = useSelector((state: AppState) => state.member)
 
   const listMembers: JSX.Element[] = [];
+  // eslint-disable-next-line
   members.map((member: any): void => {
-    if(member.room === selectedRoom)
-      listMembers.push(<ListGroup.Item key={Math.random()}>{member.member}</ListGroup.Item>)
+    if(member.room === selectedRoom){
+      listMembers.push(
+        <li className="list-group-item" key={Math.random()}>
+          <div>
+            <figure className="avatar">
+              <img src={people(member.member)} className="rounded-circle" alt="avatar"/>
+            </figure>
+          </div>
+          <div className="users-list-body">
+            <div>
+              <h5>{member.member}</h5>
+            </div>
+          </div>
+        </li>
+      )
+    }
   })
 
   return (
     <>
-      <h2>Selected Room</h2>
-      {selectedRoom}
-      <Card>
-        <ListGroup variant="flush">
-          {listMembers}
-        </ListGroup>
-      </Card>
+      <div className="sidebar-group">
+        <div className="sidebar active">
+          <header>
+            <span>{selectedRoom}</span>
+          </header>
+          <div className="sidebar-body hidescroll">
+            <ul className="list-group list-group-flush">
+              {listMembers}
+            </ul>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
