@@ -27,13 +27,14 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     socket.on('greet', (msg: Message) => {
+      let sRoom = null;
       setSlRoom(thisRoom => {
-        console.log(`comming is ${msg.room} select is ${thisRoom} is equal ${msg.room === thisRoom}`);
-        if(msg.room === thisRoom){
-          dispatch(setMessage(msg))
-        }
+        sRoom = thisRoom;
         return thisRoom;
       });
+      if(msg.room === sRoom){
+        dispatch(setMessage(msg));
+      }
     });
     socket.on('join-room', (msg: Room) => {
       dispatch(joinMember(msg.client, msg.room))
