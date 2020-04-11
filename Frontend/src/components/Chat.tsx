@@ -4,6 +4,7 @@ import { AppState } from './../store';
 import { leaveMember, joinMember, newRoom, setMessage } from './../store/actions';
 import { Message } from './../store/type';
 import { people, animal } from './../global';
+import moment from 'moment';
 
 interface Room {
   client: string,
@@ -27,7 +28,7 @@ const Chat: React.FC = () => {
 
   useEffect(() => {
     socket.on('greet', (msg: Message) => {
-      let sRoom = null;
+      let sRoom: string = '';
       setSlRoom(thisRoom => {
         sRoom = thisRoom;
         return thisRoom;
@@ -68,7 +69,7 @@ const Chat: React.FC = () => {
             </figure>
             <div>
                 <h5>{msg.client}</h5>
-                <div className="time">{msg.timestamp}</div>
+                <div className="time">{moment(msg.timestamp).format('L LTS')}</div>
             </div>
         </div>
         <div className="message-content">{msg.message}</div>
@@ -83,7 +84,7 @@ const Chat: React.FC = () => {
             </figure>
             <div>
                 <h5>{msg.client}</h5>
-                <div className="time">{msg.timestamp}</div>
+                <div className="time">{moment(msg.timestamp).format('L LTS')}</div>
             </div>
         </div>
         <div className="message-content">{msg.message}</div>
