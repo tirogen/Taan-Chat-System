@@ -23,10 +23,10 @@ app.get('/', (req, res) => {
   res.send('Cross your fingers!');
 });
 
-io.on("connect", (socket: any) => {
+io.on("connect", (socket: SocketIO.Socket) => {
   console.log("New user - %s.", socket.id);
 
-  socket.on('unread-message', async ({ room, timestamp }: Unread, fn: any) => {
+  socket.on('unread-message', async ({ room, timestamp }: Unread, fn: Function) => {
       const messages: UnreadMessage[] = await getUnreadMessage(room, timestamp);
       fn(messages);
   })
@@ -35,7 +35,7 @@ io.on("connect", (socket: any) => {
     if(client === '') return;
     await addUser(client);
     const rooms = await getYourRoom(client);
-    rooms.forEach((room: any) => {
+    rooms.forEach((room: {name: string}) => {
       socket.join(room.name);
       io.sockets.emit('join-room', {client, room: room.name});
     });
