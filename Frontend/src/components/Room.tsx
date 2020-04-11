@@ -14,7 +14,7 @@ const Room: React.FC = () => {
   const { messages } = useSelector((state: AppState) => state.message)
   const room: RoomState = useSelector((state: AppState) => state.room)
   const dispatch = useDispatch();
-  const inputRoom = useRef<HTMLInputElement>(null);
+  const inputRoom = useRef<HTMLInputElement>(document.createElement("input"));
   const [modalShow, setModalShow] = useState(false);
 
   const yourRooms: JSX.Element[] = [];
@@ -37,15 +37,11 @@ const Room: React.FC = () => {
                       if (msg.room === room)
                         lastMsg = msg.timestamp
                     })
-                    console.log({
-                      room,
-                      timestamp: lastMsg
-                    })
                     socket.emit('unread-message', {
                       room,
                       timestamp: lastMsg
                     }, (messages: Message[]) => {
-                      if (messages) dispatch(setMessage({ room, message: '$$$$####****', client: '$$$$####****', timestamp: lastMsg }));
+                      if(messages.length > 0) dispatch(setMessage({ room, message: '$$$$####****', client: '$$$$####****', timestamp: lastMsg }));
                       messages.forEach(msg => {
                         dispatch(setMessage(msg));
                       });
@@ -119,13 +115,15 @@ const Room: React.FC = () => {
               </figure>
               <input type="text" ref={inputRoom} className="form-control" placeholder="Type a room's name" />
               <button type="button" className="btn btn-success btn-block mt-3" onClick={() => {
-                const newRoom: string = inputRoom.current?.value || '';
-                dispatch(addRoom(newRoom))
-                dispatch(joinMember(name, newRoom))
-                socket.emit('new-room', {
-                  client: name,
-                  room: newRoom
-                })
+                const newRoom: string = inputRoom.current.value;
+                if(newRoom.length !== 0){
+                  dispatch(addRoom(newRoom))
+                  dispatch(joinMember(name, newRoom))
+                  socket.emit('new-room', {
+                    client: name,
+                    room: newRoom
+                  })
+                }
                 setModalShow(false);
               }}>I like its.</button>
             </div>

@@ -10,7 +10,7 @@ const Client: React.FC = () => {
   const { name } = useSelector((state: AppState) => state.client);
   const { socket } = useSelector((state: AppState) => state.socket);
   const dispatch = useDispatch();
-  const inputName = useRef<HTMLInputElement>(null);
+  const inputName = useRef<HTMLInputElement>(document.createElement("input"));
   const [modalShow, setModalShow] = useState(true);
 
   return (
@@ -28,9 +28,11 @@ const Client: React.FC = () => {
             </figure>
             <input type="text" ref={inputName} className="form-control" placeholder="Choose Your Name" />
             <button type="button" className="btn btn-success btn-block mt-3" onClick={() => {
-              dispatch(setName(inputName.current ?.value || ''));
-              socket.emit('init', inputName.current ?.value);
-              setModalShow(false);
+              if(inputName.current.value.length !== 0){
+                dispatch(setName(inputName.current.value));
+                socket.emit('init', inputName.current.value);
+                setModalShow(false);
+              }
             }}>I like its.</button>
           </div>
         </div>
