@@ -1,0 +1,52 @@
+version: '3.3'
+
+services:
+  backend:
+    build: ./Backend
+    container_name: backend
+    volumes:
+      - ./Backend:/usr/src/app
+      - /usr/src/app/node_modules
+    links:
+      - database
+    ports:
+      - 3001:3001
+  
+  backend-secondary:
+    image: taan-chat-system_backend
+    container_name: backend-secondary
+    volumes:
+      - ./Backend:/usr/src/app
+      - /usr/src/app/node_modules
+    links:
+      - backend
+    ports:
+      - 3002:3001
+
+  frontend:
+    build: ./Frontend
+    container_name: frontend
+    volumes:
+      - ./Frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3000:3000
+  
+  proxy:
+    build: ./ProxyServer
+    container_name: proxy
+    depends_on:
+      - backend
+      - backend-secondary
+    volumes:
+      - ./ProxyServer:/etc/nginx
+    links:
+      - backend
+    ports:
+      - 8080:8080
+  
+  database:
+    build: ./Database
+    container_name: database
+    ports:
+      - 3306:3306
