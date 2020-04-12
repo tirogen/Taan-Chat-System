@@ -66,7 +66,7 @@ io.on("connect", (socket: SocketIO.Socket) => {
   socket.on('greet', async ({ room, message, client }: Message) => {
       console.log(`${client} said ${message} from ${room}`);
       const timestamp = new Date();
-      await addMessage(message, client, room, timestamp.toString());
+      await addMessage(message, client, room, timestamp.toISOString().slice(0, 19).replace('T', ' '));
       io.to(room).emit('greet', { room, message, client, timestamp });
   })
 });

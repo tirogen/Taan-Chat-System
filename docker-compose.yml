@@ -4,33 +4,20 @@ services:
   backend:
     build: ./Backend
     container_name: backend
-    volumes:
-      - ./Backend:/usr/src/app
-      - /usr/src/app/node_modules
-    links:
+    depends_on:
       - database
-    ports:
-      - 3001:3001
   
   backend-secondary:
     image: taan-chat-system_backend
     container_name: backend-secondary
-    volumes:
-      - ./Backend:/usr/src/app
-      - /usr/src/app/node_modules
-    links:
+    depends_on:
       - backend
-    ports:
-      - 3002:3001
 
   frontend:
     build: ./Frontend
     container_name: frontend
-    volumes:
-      - ./Frontend:/usr/src/app
-      - /usr/src/app/node_modules
     ports:
-      - 3000:3000
+      - 5000:5000
   
   proxy:
     build: ./ProxyServer
