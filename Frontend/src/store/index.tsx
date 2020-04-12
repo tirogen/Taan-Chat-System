@@ -1,5 +1,4 @@
 import { createStore, combineReducers } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
 
 import counterReducer from "./reducers/counterReducer";
 import clientReducer from "./reducers/clientReducer";
@@ -23,7 +22,6 @@ export default function configureStore() {
 
   const store = createStore(
     rootReducer,
-    composeWithDevTools()
   );
 
   return store;
