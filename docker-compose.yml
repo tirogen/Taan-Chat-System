@@ -4,27 +4,18 @@ services:
   backend:
     build: ./Backend
     container_name: backend
-    volumes:
-      - ./Backend:/usr/src/app
-      - /usr/src/app/node_modules
     depends_on:
       - database
   
   backend-secondary:
     image: taan-chat-system_backend
     container_name: backend-secondary
-    volumes:
-      - ./Backend:/usr/src/app
-      - /usr/src/app/node_modules
     depends_on:
       - backend
 
   frontend:
     build: ./Frontend
     container_name: frontend
-    volumes:
-      - ./Frontend:/usr/src/app
-      - /usr/src/app/node_modules
     ports:
       - 5000:5000
   
