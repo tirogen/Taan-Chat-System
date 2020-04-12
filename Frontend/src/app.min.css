@@ -2433,8 +2433,8 @@ a:hover {
 }
 
 .list-group-item {
-	background-color: inherit;
-	border-color: #ebebeb
+	background-color: #1a2236 !important;
+	border-color: #ebebeb;
 }
 
 ul.list-inline .list-inline-item {
