@@ -7,13 +7,6 @@ services:
     container_name: backend
     depends_on:
       - database
-    deploy:
-        replicas: 2
-        update_config:
-            parallelism: 2
-            delay: 10s
-        restart_policy:
-            condition: on-failure
     ports:
       - 3001:3001
 
