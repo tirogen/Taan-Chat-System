@@ -4,9 +4,10 @@ services:
   database:
     image: bdockbockd/taan-chat-system_database:lastest
     container_name: database
-    mode : global
     ports:
       - 3306:3306
+    deploy:
+      mode : global
 
   backend:
     image: bdockbockd/taan-chat-system_backend:lastest
@@ -28,3 +29,5 @@ services:
       
   redis:
     image: redis
+    deploy :
+       mode: global
