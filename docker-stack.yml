@@ -4,6 +4,7 @@ services:
   database:
     image: bdockbockd/taan-chat-system_database:lastest
     container_name: database
+    mode : global
     ports:
       - 3306:3306
 
@@ -13,7 +14,7 @@ services:
     depends_on:
       - database
     deploy:
-        replicas: 2
+        mode: global
     ports:
      - 3001:3001
 
@@ -22,6 +23,8 @@ services:
     container_name: frontend
     ports:
       - 5000:5000
+    deploy:
+      mode :global
       
   redis:
     image: redis
