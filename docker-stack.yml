@@ -19,6 +19,8 @@ services:
             delay: 10s
         restart_policy:
             condition: on-failure
+    ports:
+     - 3001:3001
 
   frontend:
     image: taan-chat-system_frontend:lastest
