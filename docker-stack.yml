@@ -8,7 +8,7 @@ services:
       - 3306:3306
 
   backend:
-    image: bdockbockd/taan-chat-system_backend
+    image: bdockbockd/taan-chat-system_backend:lastest
     container_name: backend
     depends_on:
       - database
@@ -18,7 +18,7 @@ services:
      - 3001:3001
 
   frontend:
-    image: bdockbockd/taan-chat-system_frontend
+    image: bdockbockd/taan-chat-system_frontend:lastest
     container_name: frontend
     ports:
       - 5000:5000
