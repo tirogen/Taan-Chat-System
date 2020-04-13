@@ -1,0 +1,27 @@
+version: '3.3'
+
+services:
+  database:
+    image: mysql:5
+    container_name: database
+    ports:
+      - 3306:3306
+
+  backend:
+    image: taan-chat-system_backend:lastest
+    container_name: backend
+    depends_on:
+      - database
+    deploy:
+        replicas: 2
+        update_config:
+            parallelism: 2
+            delay: 10s
+        restart_policy:
+            condition: on-failure
+
+  frontend:
+    image: taan-chat-system_frontend:lastest
+    container_name: frontend
+    ports:
+      - 5000:5000
