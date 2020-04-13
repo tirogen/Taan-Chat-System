@@ -5,8 +5,6 @@ services:
     image: bdockbockd/taan-chat-system_database:lastest
     ports:
       - 3306:3306
-    deploy:
-      mode : global
 
   backend:
     image: bdockbockd/taan-chat-system_backend:lastest
@@ -21,10 +19,13 @@ services:
     image: bdockbockd/taan-chat-system_frontend:lastest
     ports:
       - 5000:5000
-    deploy :
-      mode: global
+      
+   proxy:
+    image: taan-chat-system_proxy
+    links:
+      - backend
+    ports:
+      - 8080:8080
       
   redis:
     image: redis
-    deploy :
-       mode: global
