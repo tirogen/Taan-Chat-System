@@ -2,30 +2,19 @@ version: '3.3'
 
 services:
   backend:
-    image: taan-chat-system_backend:lastest
     build: ./Backend
     container_name: backend
     depends_on:
       - database
-    deploy:
-        replicas: 2
-        update_config:
-            parallelism: 2
-            delay: 10s
-        restart_policy:
-            condition: on-failure
 
   frontend:
     build: ./Frontend
-    image: taan-chat-system_frontend:lastest
     container_name: frontend
     ports:
       - 5000:5000
   
   database:
     build: ./Database
-    image: taan-chat-system_database:lastest
     container_name: database
     ports:
       - 3306:3306
-   
