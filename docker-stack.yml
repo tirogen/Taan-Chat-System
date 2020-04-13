@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  database:
+    image: taan-chat-system_database:lastest
+    container_name: database
+    ports:
+      - 3306:3306
+
+  backend:
+    image: taan-chat-system_backend:lastest
+    container_name: backend
+    depends_on:
+      - database
+    deploy:
+        replicas: 2
+    ports:
+     - 3001:3001
+
+  frontend:
+    image: taan-chat-system_frontend:lastest
+    container_name: frontend
+    ports:
+      - 5000:5000

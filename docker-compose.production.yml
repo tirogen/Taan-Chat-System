@@ -14,12 +14,8 @@ services:
             delay: 10s
         restart_policy:
             condition: on-failure
-  
-  backend-secondary:
-    image: taan-chat-system_backend:lastest
-    container_name: backend-secondary
-    depends_on:
-      - backend
+    ports:
+      - 3001:3001
 
   frontend:
     image: taan-chat-system_backend
@@ -29,22 +25,21 @@ services:
     ports:
       - 5000:5000
   
-  proxy:
-    build: ./ProxyServer
-    container_name: proxy
-    depends_on:
-      - backend
-      - backend-secondary
-    volumes:
-      - ./ProxyServer:/etc/nginx
-    links:
-      - backend
-    ports:
-      - 8080:8080
   database:
     build: ./Database
     image: taan-chat-system_database:lastest
     container_name: database
     ports:
       - 3306:3306
- 
+      
+  proxy:
+    build: ./ProxyServer
+    container_name: proxy
+    depends_on:
+      - backend
+    volumes:
+      - ./ProxyServer:/etc/nginx
+    links:
+      - backend
+    ports:
+      - 8080:8080
