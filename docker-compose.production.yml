@@ -31,3 +31,15 @@ services:
     container_name: database
     ports:
       - 3306:3306
+      
+  proxy:
+    build: ./ProxyServer
+    container_name: proxy
+    depends_on:
+      - backend
+    volumes:
+      - ./ProxyServer:/etc/nginx
+    links:
+      - backend
+    ports:
+      - 8080:8080
