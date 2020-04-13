@@ -8,7 +8,7 @@ services:
       - 3306:3306
 
   backend:
-    bdockbockd/taan-chat-system_backend
+    image: bdockbockd/taan-chat-system_backend
     container_name: backend
     depends_on:
       - database
