@@ -2,7 +2,7 @@ import { SocketAction, SocketState } from './../type';
 import socketIOClient from "socket.io-client";
 
 const initialState: SocketState = {
-  socket: socketIOClient('127.0.0.1:3001')
+  socket: socketIOClient('http://ip172-18-0-88-bqa9372osm4g0088qr30-8080.direct.labs.play-with-docker.com/')
 }
 
 const socketReducer = (state = initialState, action: SocketAction) => {
