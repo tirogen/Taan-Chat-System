@@ -13,7 +13,9 @@ const PORT: string | undefined = process.env.SOCKET_PORT;
 const app: express.Application = express();
 const server: http.Server = http.createServer(app)
 app.use(cors())
-const io: SocketIO.Server = SocketIO.listen(server, { origins: '*:*' });;
+const io: SocketIO.Server = SocketIO.listen(server, { origins: '*:*' });
+const redisAdapter = require('socket.io-redis');
+io.adapter(redisAdapter({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT }));
 
 server.listen(PORT, () => {
   console.log("Running server on port %s", PORT);
