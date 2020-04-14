@@ -23,7 +23,9 @@ services:
     build: ./Frontend
     container_name: frontend
     ports:
-      - 5000:5000
+      - 3000:3000
+    environment:
+      - REACT_APP_SOCKET_GATEWAY=localhost:8080
   
   proxy:
     build: ./ProxyServer

@@ -2,8 +2,10 @@ import { SocketAction, SocketState } from './../type';
 import socketIOClient from "socket.io-client";
 
 const initialState: SocketState = {
-  socket: socketIOClient('127.0.0.1:8080')
+  socket: socketIOClient(process.env.REACT_APP_SOCKET_GATEWAY || 'localhost:8080')
 }
+
+console.log(process.env.REACT_APP_SOCKET_GATEWAY);
 
 const socketReducer = (state = initialState, action: SocketAction) => {
     switch(action.type){
