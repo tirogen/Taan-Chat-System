@@ -2,25 +2,25 @@ version: '3.3'
 
 services:
   database:
-    image: taan02991/database
+    build: Database
     container_name: database
     ports:
       - 3306:3306
 
   backend:
-    image: taan02991/backend
+    build: Backend
     container_name: backend
     depends_on:
       - database
   
   backend-secondary:
-    image: taan02991/backend
+    image: taan-chat-system_backend
     container_name: backend-secondary
     depends_on:
       - backend
 
   frontend:
-    image: taan02991/frontend
+    build: Frontend
     container_name: frontend
     ports:
       - 3000:3000
@@ -28,13 +28,10 @@ services:
       - REACT_APP_SOCKET_GATEWAY=localhost:8080
   
   proxy:
-    image: taan02991/proxy
+    build: ProxyServer
     container_name: proxy
     depends_on:
       - backend
       - backend-secondary
     ports:
       - 8080:8080
-
-  redis:
-    image: redis
